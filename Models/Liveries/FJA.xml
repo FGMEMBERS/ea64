@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+<sim>
+    <model>
+        <livery>
+            <name type="string">FjordAir</name>
+            <texture>Liveries/fjordair.png</texture>
+        </livery>
+        <livery-seats>
+            <texture>seats.png</texture>
+        </livery-seats>
+    </model>
+</sim>
+</PropertyList>
