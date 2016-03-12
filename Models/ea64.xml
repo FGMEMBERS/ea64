@@ -32,7 +32,12 @@
     </unload>
     </nasal>
     <path>proppower.ac</path>
-<model><path>proppower-shadow.xml</path>
+<model>
+<condition>
+		  <property>/sim/rendering/shaders/skydome</property>
+          <property>sim/rendering/shadow-volume</property>
+</condition>
+<path>proppower-shadow.xml</path>
 <offsets><z-m>0.05</z-m></offsets>
 </model>
 <effect>
@@ -166,29 +171,68 @@
 <!--Throttle lever-->
 <animation>
 <type>rotate</type>
-<object-name>throttlelever</object-name>
-<property>/controls/engines/engine/throttle</property>
-<factor>-60</factor>
+<object-name>throttleR</object-name>
+<property>/controls/engines/engine[1]/throttle</property>
+<factor>-80</factor>
 <axis><y>1</y></axis>
 <center>
-      <x-m>-6.69057</x-m>
-      <z-m>-0.37791</z-m>
+      <x-m>-6.69605</x-m>
+      <z-m>-0.36652</z-m>
+</center>
+</animation>
+<animation>
+<type>rotate</type>
+<object-name>throttleL</object-name>
+<property>/controls/engines/engine/throttle</property>
+<factor>-80</factor>
+<axis><y>1</y></axis>
+<center>
+      <x-m>-6.69605</x-m>
+      <z-m>-0.36652</z-m>
 </center>
 </animation>
 <!---->
    
-
+ <animation>
+        <type>select</type>
+        <object-name>propL</object-name>
+<condition><less-than>
+        <property>engines/engine[0]/rpm</property>
+<value>500</value></less-than>
+</condition>
+    </animation> 
+<animation>
+        <type>select</type>
+        <object-name>propblurL</object-name>
+<condition><greater-than>
+        <property>engines/engine[0]/rpm</property>
+<value>450</value></greater-than><less-than>
+        <property>engines/engine[0]/rpm</property>
+<value>900</value></less-than>
+</condition>
+    </animation>
+<animation>
+        <type>select</type>
+        <object-name>propdiscL</object-name>
+<condition><greater-than>
+        <property>engines/engine[0]/rpm</property>
+<value>850</value></greater-than>
+</condition>
+    </animation>
+ 
     <animation>
         <type>spin</type>
         <object-name>propL</object-name>
+        <object-name>propblurL</object-name>
+        <object-name>propdiscL</object-name>
 <condition>
         <property>engines/engine[0]/running</property>
 </condition>
         <property>engines/engine[0]/rpm</property>
         <factor>10</factor>
         <center>
-            <y-m>-1.60915</y-m>
-            <z-m>-0.55348</z-m>
+            <y-m>-1.6374</y-m>
+            <z-m>-0.54943</z-m>
         </center>
         <axis>
             <x>-1.0</x>
@@ -197,18 +241,45 @@
         </axis>
     </animation>
  
- 
+  <animation>
+        <type>select</type>
+        <object-name>propR</object-name>
+<condition><less-than>
+        <property>engines/engine[1]/rpm</property>
+<value>500</value></less-than>
+</condition>
+    </animation> 
+<animation>
+        <type>select</type>
+        <object-name>propblurR</object-name>
+<condition><greater-than>
+        <property>engines/engine[1]/rpm</property>
+<value>450</value></greater-than><less-than>
+        <property>engines/engine[1]/rpm</property>
+<value>900</value></less-than>
+</condition>
+    </animation>
+<animation>
+        <type>select</type>
+        <object-name>propdiscR</object-name>
+<condition><greater-than>
+        <property>engines/engine[1]/rpm</property>
+<value>850</value></greater-than>
+</condition>
+    </animation>
     <animation>
         <type>spin</type>
         <object-name>propR</object-name>
+        <object-name>propblurR</object-name>
+        <object-name>propdiscR</object-name>
 <condition>
         <property>engines/engine[1]/running</property>
 </condition>
         <property>engines/engine[1]/rpm</property>
         <factor>10</factor>
         <center>
-            <y-m>1.60915</y-m>
-            <z-m>-0.55348</z-m>
+            <y-m>1.6374</y-m>
+            <z-m>-0.54943</z-m>
         </center>
         <axis>
             <x>-1.0</x>

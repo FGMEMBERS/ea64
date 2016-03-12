@@ -3,8 +3,8 @@
 <airplane mass="12500" version="YASIM_VERSION_CURRENT">
 
 <approach speed="90" aoa="6" fuel="0.2">
-  <control-setting axis="/controls/engines/engine[0]/throttle" value="0.2"/>
-  <control-setting axis="/controls/engines/engine[1]/throttle" value="0.2"/>
+  <control-setting axis="/controls/engines/engine[0]/throttle-fwd" value="0.2"/>
+  <control-setting axis="/controls/engines/engine[1]/throttle-fwd" value="0.2"/>
   <control-setting axis="/controls/engines/engine[0]/condition" value="1"/>
   <control-setting axis="/controls/engines/engine[1]/condition" value="1"/>
   <control-setting axis="/controls/engines/engine[0]/propeller-pitch" value="1"/>
@@ -14,8 +14,8 @@
 </approach>
 
 <cruise speed="300" alt="25000" fuel="0.7">
-  <control-setting axis="/controls/engines/engine[0]/throttle" value="0.9"/>
-  <control-setting axis="/controls/engines/engine[1]/throttle" value="0.9"/>
+  <control-setting axis="/controls/engines/engine[0]/throttle-fwd" value="0.9"/>
+  <control-setting axis="/controls/engines/engine[1]/throttle-fwd" value="0.9"/>
   <control-setting axis="/controls/engines/engine[0]/condition" value="0.65"/>
   <control-setting axis="/controls/engines/engine[1]/condition" value="0.65"/>
   <control-setting axis="/controls/engines/engine[0]/propeller-pitch" value="1"/>
