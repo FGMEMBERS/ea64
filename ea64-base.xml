@@ -45,7 +45,20 @@ adapted for EchoAir 64 "Scorpion" by D-ECHO
             </generic>
         </multiplay>
 
-
+    <engines>
+        <engine n="0">
+            <running>0</running>
+            <rpm>0</rpm>
+            <n1 type="double">0</n1>
+            <fuel-flow_pph type="float">0</fuel-flow_pph>
+        </engine>
+        <engine n="1">
+            <running>0</running>
+            <rpm>0</rpm>
+            <n1 type="double">0</n1>
+            <fuel-flow_pph type="float">0</fuel-flow_pph>
+        </engine>
+    </engines>
 
     <model>
         <path>Aircraft/ea64/Models/ea64.xml</path>
@@ -216,6 +229,16 @@ adapted for EchoAir 64 "Scorpion" by D-ECHO
                         <script>aircraft.livery.dialog.toggle()</script>
                     </binding>
                 </item>
+     <item>
+      <label>Select MP-copilot</label>
+      <binding>
+       <command>nasal</command>
+       <script>
+        dual_control_tools.
+          copilot_dialog.show(aircraft_dual_control.copilot_type);
+       </script>
+      </binding>
+     </item>
             </menu>
         </default>
     </menubar>
@@ -315,17 +338,21 @@ adapted for EchoAir 64 "Scorpion" by D-ECHO
         <gauge n="1" type="double">0</gauge>
         <tank n="0">
             <name>L Main</name>
+ 	    <unusable-m3>0.1</unusable-m3>
         </tank>
         <tank n="1">
             <name>R Main</name>
+ 	    <unusable-m3>0.1</unusable-m3>
         </tank>
         <tank n="2">
             <name>L Aux</name>
             <level-gal_us type="double">0</level-gal_us>
+ 	    <unusable-m3>0.1</unusable-m3>
         </tank>
         <tank n="3">
             <name>R Aux</name>
             <level-gal_us type="double">0</level-gal_us>
+ 	    <unusable-m3>0.1</unusable-m3>
         </tank>
     </fuel>
 </consumables>
@@ -415,20 +442,20 @@ adapted for EchoAir 64 "Scorpion" by D-ECHO
             <desc>Toggle Reversers</desc>
             <binding>
                 <condition>
-                    <equals>
+                    <less-than>
                         <property>controls/engines/engine[0]/throttle</property>
-                        <value>0</value>
-                    </equals>
+                        <value>0.1</value>
+                    </less-than>
                 </condition>
                 <command>property-toggle</command>
                 <property>controls/engines/engine[0]/reverser</property>
             </binding>
             <binding>
                 <condition>
-                    <equals>
+                    <less-than>
                         <property>controls/engines/engine[1]/throttle</property>
-                        <value>0</value>
-                    </equals>
+                        <value>0.1</value>
+                    </less-than>
                 </condition>
                 <command>property-toggle</command>
                 <property>controls/engines/engine[1]/reverser</property>

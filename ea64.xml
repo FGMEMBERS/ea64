@@ -76,8 +76,8 @@
       sweep="35"
       camber="0.005">
   <stall aoa="16" width="4" peak="1.5"/>
-  <flap0 start="0" end="1" lift="1" drag="1.2"/>
-  <control-input axis="/controls/flight/rudder" control="FLAP0" invert="true"/>
+  <flap0 start="0" end="1" lift="1.5" drag="1.7"/>
+  <control-input axis="/controls/flight/rudder" control="FLAP0" invert="true" square="true"/>
   <control-input axis="/controls/flight/rudder-trim" control="FLAP0" invert="true"/>
   <control-output control="FLAP0" prop="/surface-positions/rudder-pos-norm"/>
 </vstab>
@@ -134,8 +134,11 @@
 	</thruster>
 
 <!--Pushback/direct wheel engine-->
-	<thruster x="6.64306" y="0.0" z="-1.63807" vx="1" vy="0" vz="0" thrust="1500">
-		<control-input axis="/sim/model/pushback/force" control="THROTTLE" src0="-1" dst0="-0.5" src1="1" dst1="0.5" />
+	<thruster x="6.64306" y="0.0" z="-1.63807" vx="1" vy="0" vz="0" thrust="1700">
+		<control-input axis="/sim/model/pushback/force" control="THROTTLE"/>
+	</thruster>
+	<thruster x="6.64306" y="0.0" z="-1.63807" vx="-1" vy="0" vz="0" thrust="1700">
+		<control-input axis="/sim/model/pushback/force-rvs" control="THROTTLE"/>
 	</thruster>
 
 <gear x="6.6521" y="0" z="-1.9234" compression="0.1" retract-time="5"

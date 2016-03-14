@@ -531,6 +531,27 @@ var update_systems = func {
     }
     
 
+#direct wheel thruster
+    var wow =getprop("/gear/gear[0]/wow");
+    var eng1 =getprop("/engines/engine[0]/running");
+    var eng2 =getprop("/engines/engine[1]/running");
+    var wts =getprop("/controls/electric/battery-switch");
+    if(wow==1){
+    if(eng1==0){
+    if(eng2==0){
+    if(wts==1){
+    var thrust=getprop("/controls/engines/engine[0]/throttle-fwd");
+    setprop("/sim/model/pushback/force",thrust or 0);
+    var thrust_rvs=getprop("/controls/engines/engine[0]/throttle-rvrs-norunning");
+    setprop("/sim/model/pushback/force-rvs",thrust_rvs or 0);
+}
+}
+}
+}
+    if(wow==0 or eng1==1 or eng2==1 or wts==0){
+    setprop("/sim/model/pushback/force",0);
+    setprop("/sim/model/pushback/force-rvs",0);
+}
     flight_meter();
     wiper.active();
     update_fuel();

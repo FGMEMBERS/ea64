@@ -11,24 +11,32 @@
       var float_1 = self.getNode("sim/multiplay/generic/float[1]", 1);
       var float_2 = self.getNode("sim/multiplay/generic/float[2]", 1);
       var float_3 = self.getNode("sim/multiplay/generic/float[3]", 1);
+      var float_4 = self.getNode("sim/multiplay/generic/float[4]", 1);
+      var float_5 = self.getNode("sim/multiplay/generic/float[5]", 1);
 
       var passenger = self.getNode("instrumentation/doors/passenger/position-norm", 1);
+      var passengerstairs = self.getNode("instrumentation/doors/passengerstairs/position-norm", 1);
       var rearL = self.getNode("instrumentation/doors/rearL/position-norm", 1);
       var frontR = self.getNode("instrumentation/doors/rearR/position-norm", 1);
       var frontL = self.getNode("instrumentation/doors/rearL/position-norm", 1);
+      var cockpit = self.getNode("instrumentation/doors/cockpit/position-norm", 1);
 
       passenger_door.alias(float_0);
+      passengerstairs_door.alias(float_5);
       rearL_door.alias(float_1);
       frontR_door.alias(float_2);
       frontL_door.alias(float_3);
+      cockpit_door.alias(float_4);
     </load>
 
     <unload>
       livery_update.stop();
       passenger_door.unalias();
+      passengerstairs_door.unalias();
       rearL_door.unalias();
       frontR_door.unalias();
       frontL_door.unalias();
+      cockpit_door.unalias();
     </unload>
     </nasal>
     <path>proppower.ac</path>
@@ -75,7 +83,7 @@
           <object-name>cockpit</object-name>
           <object-name>interior</object-name>
           <object-name>cockpitseats</object-name>
-          <object-name>seats</object-name>
+          <object-name>seatsR</object-name>
   </effect>
 <!--Livery-->
     <animation>
@@ -115,18 +123,34 @@
       <texture-prop>texture</texture-prop>
       <texture>texture.png</texture>
     </animation>
-<!--Livery-->
+<!--Livery--><!--
     <animation>
       <type>material</type>
 		<object-name>seats</object-name>
       <property-base>sim/model/livery-seats</property-base>
       <texture-prop>texture</texture-prop>
       <texture>seats.png</texture>
-    </animation>
+    </animation>-->
+<!--INTERIOR-->
+ <animation>
+  <type>material</type>
+ <object-name>cockpitlights</object-name>
+    <condition>
+<and>
+      <property>/controls/electric/battery-switch</property>
+<property>/controls/lighting/instrument-lights</property>
+</and>
+    </condition>
+  <emission>
+   <red>1</red>
+   <green>1</green>
+   <blue>1</blue>
+  </emission>
+ </animation>
  <animation>
   <type>material</type>
   <object-name>cockpit</object-name>
-		<object-name>seats</object-name>
+		<object-name>seatsR</object-name>
 		<object-name>seatFL1</object-name>
 		<object-name>interior</object-name>
     <condition>
@@ -146,6 +170,48 @@
    <blue>0.2</blue>
   </emission>
  </animation>
+<!--Cockpit Doors-->
+ <animation>
+    <type>pick</type>
+    <object-name>cockpitdoorL</object-name>
+    <object-name>cockpitdoorR</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.doorsystem.cockpitexport();</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>cockpitdoorL</object-name>
+    <property>instrumentation/doors/cockpit/position-norm</property>
+    <factor> -90 </factor>
+<center>
+<x-m>-5.97498</x-m>
+<y-m>-0.21612</y-m>
+<z-m>-0.61651</z-m>
+</center>
+<axis><z>1</z>
+		</axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>cockpitdoorR</object-name>
+    <property>instrumentation/doors/cockpit/position-norm</property>
+    <factor> 90 </factor>
+<center>
+<x-m>-5.97498</x-m>
+<y-m>0.21612</y-m>
+<z-m>-0.61651</z-m>
+</center>
+<axis><z>1</z>
+		</axis>
+  </animation>
 <!--Panel-->
   <model>
     <path>Panel/panel.xml</path>
@@ -159,13 +225,25 @@
   <!--Flaps lever-->
 <animation>
 <type>rotate</type>
-<object-name>flapslever</object-name>
-<property>/controls/flight/flaps</property>
+<object-name>spoilerlever</object-name>
+<property>/controls/flight/speedbrake</property>
 <factor>60</factor>
 <axis><y>1</y></axis>
 <center>
-<x-m>-6.42501</x-m>
-<z-m>-0.36725</z-m>
+<x-m>-6.47145</x-m>
+<z-m>-0.36194</z-m>
+</center>
+</animation>
+  <!--Flaps lever-->
+<animation>
+<type>rotate</type>
+<object-name>flapslever</object-name>
+<property>/surface-positions/flap-pos-norm</property>
+<factor>90</factor>
+<axis><y>1</y></axis>
+<center>
+<x-m>-6.47145</x-m>
+<z-m>-0.36194</z-m>
 </center>
 </animation>
 <!--Throttle lever-->
@@ -225,9 +303,6 @@
         <object-name>propL</object-name>
         <object-name>propblurL</object-name>
         <object-name>propdiscL</object-name>
-<condition>
-        <property>engines/engine[0]/running</property>
-</condition>
         <property>engines/engine[0]/rpm</property>
         <factor>10</factor>
         <center>
@@ -272,9 +347,6 @@
         <object-name>propR</object-name>
         <object-name>propblurR</object-name>
         <object-name>propdiscR</object-name>
-<condition>
-        <property>engines/engine[1]/running</property>
-</condition>
         <property>engines/engine[1]/rpm</property>
         <factor>10</factor>
         <center>
@@ -911,205 +983,6 @@
     </animation>
 
 
-<!--####    Surface Positions    ####-->
- 
- <!--   <animation>
-        <type>rotate</type>
-        <object-name>Rudder</object-name>
-        <property>controls/flight/rudder</property>
-        <factor>25</factor>
-        <center>
-            <x-m>8.909</x-m>
-            <y-m>0</y-m>
-            <z-m>1.431</z-m>
-        </center>
-        <axis>
-            <x>0.37</x>
-            <y>0</y>
-            <z>0.63</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>LHelevator</object-name>
-        <property>surface-positions/elevator-pos-norm</property>
-        <factor>15</factor>
-        <center>
-            <x-m>9.755</x-m>
-            <y-m>-1.371</y-m>
-            <z-m>2.455</z-m>
-        </center>
-        <axis>
-            <x>-0.15</x>
-            <y>0.87</y>
-            <z>0.0</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>RHelevator</object-name>
-        <property>surface-positions/elevator-pos-norm</property>
-        <factor>15</factor>
-        <center>
-            <x-m>9.755</x-m>
-            <y-m>1.371</y-m>
-            <z-m>2.455</z-m>
-        </center>
-        <axis>
-            <x>0.15</x>
-            <y>0.87</y>
-            <z>0.0</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>RHflap</object-name>
-        <property>surface-positions/flap-pos-norm</property>
-        <factor>35</factor>
-        <center>
-            <x-m>1.185</x-m>
-            <y-m>2.042</y-m>
-            <z-m>-0.852</z-m>
-        </center>
-        <axis>
-            <x>-2</x>
-            <y>90</y>
-            <z>9</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>RHflap1</object-name>
-        <property>surface-positions/flap-pos-norm</property>
-        <factor>35</factor>
-        <center>
-            <x-m>1.061</x-m>
-            <y-m>4.036</y-m>
-            <z-m>-0.637</z-m>
-        </center>
-        <axis>
-            <x>-13</x>
-            <y>90</y>
-            <z>9</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>RHaileron</object-name>
-        <property>surface-positions/right-aileron-pos-norm</property>
-        <factor>10</factor>
-        <center>
-            <x-m>0.942</x-m>
-            <y-m>4.876</y-m>
-            <z-m>-0.550</z-m>
-        </center>
-        <axis>
-            <x>-13</x>
-            <y>90</y>
-            <z>9</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>LHflap</object-name>
-        <property>surface-positions/flap-pos-norm</property>
-        <factor>35</factor>
-        <center>
-            <x-m>1.185</x-m>
-            <y-m>-2.042</y-m>
-            <z-m>-0.852</z-m>
-        </center>
-        <axis>
-            <x>2</x>
-            <y>90</y>
-            <z>-9</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>LHflap1</object-name>
-        <property>surface-positions/flap-pos-norm</property>
-        <factor>35</factor>
-        <center>
-            <x-m>1.061</x-m>
-            <y-m>-4.036</y-m>
-            <z-m>-0.637</z-m>
-        </center>
-        <axis>
-            <x>13</x>
-            <y>90</y>
-            <z>-9</z>
-        </axis>
-    </animation>
-  
-    <animation>
-        <type>rotate</type>
-        <object-name>LHaileron</object-name>
-        <property>surface-positions/left-aileron-pos-norm</property>
-        <factor>10</factor>
-        <center>
-            <x-m>0.942</x-m>
-            <y-m>-4.876</y-m>
-            <z-m>-0.550</z-m>
-        </center>
-        <axis>
-            <x>13</x>
-            <y>90</y>
-            <z>-9</z>
-        </axis>
-    </animation>-->
-<!--Stairway (to heaven ;)-->
-  <animation>
-    <type>pick</type>
-    <object-name>stairway11</object-name>
-    <object-name>stairway12</object-name>
-    <object-name>stairway13</object-name>
-    <object-name>stairway14</object-name>
-    <object-name>stairway21</object-name>
-    <object-name>stairway22</object-name>
-    <object-name>stairway23</object-name>
-    <object-name>stairway24</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>false</repeatable>  
-      <binding>
-<condition>
-        <property>instrumentation/doors/passenger/position-norm</property>
-</condition>
-        <command>property-toggle</command>
-        <property>/sim/model/stairway</property>
-      </binding>
-    </action>
-  </animation>
-  <animation>
-    <type>select</type>
-    <object-name>stairway21</object-name>
-    <object-name>stairway22</object-name>
-    <object-name>stairway23</object-name>
-    <object-name>stairway24</object-name>
-<condition>
-        <property>/sim/model/stairway</property>
-</condition>
-  </animation>
-  <animation>
-    <type>select</type>
-<condition>
-<not>
-        <property>/sim/model/stairway</property>
-</not>
-</condition>
-    <object-name>stairway11</object-name>
-    <object-name>stairway12</object-name>
-    <object-name>stairway13</object-name>
-    <object-name>stairway14</object-name>
-  </animation>
  <!-- Passenger door-->
  <animation>
     <type>pick</type>
@@ -1119,7 +992,8 @@
       <button>0</button>
       <repeatable>false</repeatable>  
       <binding>
-<condition>
+<condition><equals>
+        <property>instrumentation/doors/passengerstairs/position-norm</property><value>0</value></equals>
 <not>
         <property>/sim/model/stairway</property>
 </not>
@@ -1129,26 +1003,65 @@
       </binding>
     </action>
   </animation>
-
+  <animation>
+    <type>rotate</type>
+    <object-name>doorstairs1</object-name>
+    <object-name>doorstairs2</object-name>
+    <property>instrumentation/doors/passenger/position-norm</property>
+<offset-deg>-151.1</offset-deg>
+    <factor> 151.1 </factor>
+<axis>
+			<x1-m>3.5615</x1-m>
+			<y1-m>-0.83348</y1-m>
+			<z1-m>-0.61585</z1-m>
+			<x2-m>4.12596</x2-m>
+			<y2-m>-0.77733</y2-m>
+			<z2-m>-0.61067</z2-m>
+		</axis>
+  </animation>
+ <animation>
+    <type>pick</type>
+    <object-name>doorstairs2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+<condition><equals>
+        <property>instrumentation/doors/passenger/position-norm</property><value>1</value></equals>
+</condition>
+        <command>nasal</command>
+        <script>doors.doorsystem.passengerstairsexport();</script>
+      </binding>
+    </action>
+  </animation>
+  <animation>
+    <type>rotate</type>
+    <object-name>doorstairs2</object-name>
+    <property>instrumentation/doors/passengerstairs/position-norm</property>
+<offset-deg>-174.1</offset-deg>
+    <factor> 174.1 </factor>
+<center>
+<x-m>3.85599</x-m>
+<y-m>-1.5645</y-m>
+<z-m>-1.38075</z-m>
+</center>
+<axis>
+			<x>1</x>
+		</axis>
+  </animation>
   <animation>
     <type>rotate</type>
     <object-name>door</object-name>
 		<object-name>dooroutside</object-name>
     <property>instrumentation/doors/passenger/position-norm</property>
-    <factor> -160 </factor>
-<center>
-<x-m>3.856</x-m>
-<y-m>-0.5455</y-m>
-<z-m>0.4484</z-m>
-</center>
-
-		<axis>
-			<x1-m>3.5625</x1-m>
-			<y1-m>-0.8315</y1-m>
-			<z1-m>-0.617</z1-m>
-			<x2-m>4.1241</x2-m>
-			<y2-m>-0.7772</y2-m>
-			<z2-m>-0.6132</z2-m>
+    <factor> 151.1 </factor>
+<axis>
+			<x1-m>3.5615</x1-m>
+			<y1-m>-0.83348</y1-m>
+			<z1-m>-0.61585</z1-m>
+			<x2-m>4.12596</x2-m>
+			<y2-m>-0.77733</y2-m>
+			<z2-m>-0.61067</z2-m>
 		</axis>
   </animation>
 

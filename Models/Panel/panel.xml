@@ -16,18 +16,8 @@
 <pitch-deg>20</pitch-deg>
     </offsets>
   </model>
-  <!--  <model>
-    <path>Aircraft/EchoAirTraveller/Models/MFD/mfd.xml</path>
-    <offsets>
-      <y-m>0.14</y-m>
-      <x-m>-0.00</x-m>
-      <z-m>-0.0</z-m>
-<pitch-deg>90</pitch-deg>
-<roll-deg>90</roll-deg>
-    </offsets>
-  </model>-->
 <!--Gear-->
-    <model>
+ <!--   <model>
     <path>gear/pb.xml</path>
     <offsets>
       <y-m>-0.4</y-m>
@@ -35,7 +25,7 @@
       <z-m>0.05</z-m>
       <heading-deg>45</heading-deg>
     </offsets>
-  </model>
+  </model>-->
     <model>
     <path>gear/gear.xml</path>
     <offsets>
