@@ -98,7 +98,7 @@
    <file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
   </dual_control_tools>
   <aircraft_dual_control>
-   <file>Aircraft/ZLT-NT/Systems/ZLT-NT-dual-control.nas</file>
+   <file>Aircraft/ea64/Nasal/ZLT-NT-dual-control.nas</file>
   </aircraft_dual_control>
   <dual_control>
    <file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>

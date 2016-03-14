@@ -8,6 +8,7 @@
 <!--
   Usage: fgfs - -prop:/sim/remote/pilot-callsign="remote pilot callsign" - -aircraft=ZLT-NT-copilot
 -->
+<!--This is a test version of a dual control system. It has till now never worked (once tested). More extensive tests will be done later this week (from 18th March 2016)-->
 <PropertyList>
 
  <sim>
@@ -156,21 +157,11 @@
  </instrumentation>
 
  <nasal>
-  <ZLTNT>
-   <file>Aircraft/ZLT-NT/Systems/ZLT-NT-copilot.nas</file>
-   <file>Aircraft/ZLT-NT/Systems/mp-network.nas</file>
-   <script>
-    # Use the minimal remote_mooring instead of mooring.
-    ZLTNT.mooring = ZLTNT.remote_mooring;
-    # Initialize scenario network as observer.
-    ZLTNT.mp_network_init(0);
-   </script>
-  </ZLTNT>
   <dual_control_tools>
    <file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
   </dual_control_tools>
   <aircraft_dual_control>
-   <file>Aircraft/ZLT-NT/Systems/ZLT-NT-dual-control.nas</file>
+   <file>Aircraft/ea64/Nasal/dual-control.nas</file>
   </aircraft_dual_control>
   <dual_control>
    <file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file>
