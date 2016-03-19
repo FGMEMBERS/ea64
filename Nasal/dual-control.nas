@@ -163,12 +163,6 @@ var pilot_connect_copilot = func (copilot) {
     # Make sure dual-control is activated in the FDM FCS.
     settimer(func { setprop(l_dual_control, 1); }, 1);
 
-    # VHF 22 Comm. Comm 1 is owned by pilot, 2 by copilot.
-    VHF22.make_master(0);
-    VHF22.make_slave_to(1, copilot);
-    # VIR 32 Nav. Nav 1 is owned by pilot, 2 by copilot.
-    VIR32.make_master(0);
-    VIR32.make_slave_to(1, copilot);
 
     return 
         [
