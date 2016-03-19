@@ -644,10 +644,6 @@ var copilot_connect_pilot = func (pilot) {
 
 ######################################################################
 var copilot_disconnect_pilot = func {
-    # VHF 22 Comm. Regain control of Comm 1.
-    VHF22.make_master(0);
-    # VIR 32 Nav. Regain control of Nav 1.
-    VIR32.make_master(0);
 
     # Silence the pressure alarm.
     setprop("instrumentation/envelope-pressure-indicator/indicated-gas-pressure-psf", -1);
