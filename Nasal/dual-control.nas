@@ -253,6 +253,32 @@ var pilot_connect_copilot = func (copilot) {
                if (b) controls.gearDown(1);
            }
           ] ~
+          ########################################
+          #  4 - 8: VHF22 Comm 1
+          VHF22.master_receive_slave_buttons(0) ~
+          ########################################
+          #  9 - 13: VIR32 Nav 1
+          VIR32.master_receive_slave_buttons(0) ~
+          [
+           ########################################
+           # 14 - 17: Ballonet cmd inc/dec
+           func (b) {
+               if (b) { ZLTNT.step_ballonet_cmd(0, 0.05); }
+           },
+           func (b) {
+               if (b) { ZLTNT.step_ballonet_cmd(0, -0.05); }
+           },
+           func (b) {
+               if (b) { ZLTNT.step_ballonet_cmd(1, 0.05); }
+           },
+           func (b) {
+               if (b) { ZLTNT.step_ballonet_cmd(1, -0.05); }
+           },
+          ] ~
+          ########################################
+          #  18 - 22: ADF 462
+          ADF462.master_receive_slave_buttons(0)
+          ),
          ##################################################
          # Set up TDM reception of slow state properties.
          DCT.TDMDecoder.new
@@ -661,7 +687,6 @@ var set_copilot_wrappers = func (pilot) {
         }
         gui.popupTip("Aft engine swivel " ~ int(v < 0 ? 0 : 90) ~ " deg.");
     }
- 
 }
 
 ######################################################################
